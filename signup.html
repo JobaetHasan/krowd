@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Krowd</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+   
+    <link rel="stylesheet" href="styles/signup.css">
 </head>
 <body>
     <div class="signup-form">
@@ -26,15 +26,15 @@
             <button type="submit">Sign Up</button>
         </form>
         <p>Already have an account? <a href="login.html">Login</a></p>
-        <p id="message"></p> <!-- Added this element to show success or error message -->
+        <p id="message"></p> 
+
     </div>
 
     <script>
-        // signup.js
+       
         document.getElementById('signupForm').addEventListener('submit', async (event) => {
-            event.preventDefault();  // Prevent the form from submitting normally
+            event.preventDefault();  
 
-            // Get form values
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -45,7 +45,7 @@
                 password
             };
 
-            // Send data to backend API for signup
+            //  API for signup
             const response = await fetch('http://localhost:5500/api/signup', {
                 method: 'POST',
                 headers: {
@@ -56,7 +56,7 @@
 
             const result = await response.json();
 
-            // Display message based on response
+          
             const messageElement = document.getElementById('message');
             if (response.ok) {
                 messageElement.textContent = `Signup successful! Welcome, ${result.username}`;

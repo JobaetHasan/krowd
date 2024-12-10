@@ -1,0 +1,78 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Rubik', sans-serif;
+    background-color: #f7f7f7; /* Light gray background */
+    color: #333; /* Neutral dark text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Payment Container */
+.payment-container {
+    background-color: #fff; /* White background for form */
+    padding: 20px;
+    border: 1px solid #ddd; /* Subtle border for structure */
+    border-radius: 5px; /* Rounded corners */
+    width: 100%;
+    max-width: 400px; /* Restrict width for better readability */
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.payment-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #000; /* Strong heading color */
+}
+
+/* Form Label Styling */
+.payment-container label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555; /* Muted label color */
+}
+
+/* Form Input Styling */
+.payment-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc; /* Neutral border */
+    border-radius: 3px; /* Slight rounding */
+    outline: none;
+}
+
+.payment-container input:focus {
+    border-color: #007bff; /* Highlight blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Light blue shadow on focus */
+}
+
+/* Submit Button Styling */
+.payment-container button {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px; /* Rounded corners */
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+.payment-container button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

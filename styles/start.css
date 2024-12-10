@@ -1,0 +1,90 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Rubik', sans-serif;
+    background-color: #f7f7f7; /* Light gray background */
+    color: #333; /* Neutral dark text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Campaign Form Container */
+.start-campaign-form {
+    background-color: #fff; /* White background for form */
+    padding: 20px;
+    border: 1px solid #ddd; /* Subtle border for structure */
+    border-radius: 5px; /* Rounded corners */
+    width: 100%;
+    max-width: 400px; /* Restrict width for better readability */
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.start-campaign-form h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #000; /* Strong heading color */
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left; /* Align labels and inputs to the left */
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    color: #555; /* Muted color for labels */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc; /* Neutral border for inputs */
+    border-radius: 3px; /* Slight rounding for input elements */
+    outline: none;
+    resize: none; /* Prevent textarea resizing */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff; /* Highlighted blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Light blue shadow on focus */
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px; /* Rounded corners for button */
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Message Display */
+#message {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start a Campaign - Krowd</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+ 
+    <link rel="stylesheet" href="styles/start.css">
 </head>
 <body>
     <div class="start-campaign-form">
@@ -25,14 +25,14 @@
             </div>
             <button type="submit">Create Campaign</button>
         </form>
-        <div id="message"></div> <!-- Success/Error message -->
+        <div id="message"></div> 
     </div>
 
     <script>
 
 
         document.getElementById('campaignForm').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); 
 
             // Collect form data
             const title = document.getElementById('title').value;
@@ -48,7 +48,7 @@
             };
 
             try {
-                // Send data to backend API
+                //   API for start campaignn 
                 const response = await fetch('http://localhost:5500/api/create-campaign', {
                     method: 'POST',
                     headers: {

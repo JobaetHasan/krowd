@@ -1,0 +1,122 @@
+/* General Reset */
+body, h1, h3, p, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#collector-name {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.campaigns-container {
+    margin-top: 20px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.campaign-card {
+    background: #fefefe;
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.campaign-card h3 {
+    font-size: 1.2rem;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+
+.campaign-card p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.campaign-card strong {
+    color: #e67e22;
+}
+
+.campaign-card em {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+}
+
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+button:active {
+    background: #1c6b93;
+}
+
+button + button {
+    margin-left: 10px;
+}
+
+button[onclick*="deleteCampaign"] {
+    background: #e74c3c;
+}
+
+button[onclick*="deleteCampaign"]:hover {
+    background: #c0392b;
+}
+
+button[onclick*="deleteCampaign"]:active {
+    background: #a02820;
+}
+
+@media (max-width: 600px) {
+    .profile-container {
+        padding: 10px;
+    }
+
+    .campaign-card {
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    button + button {
+        margin-left: 0;
+    }
+}

@@ -7,13 +7,13 @@ const cors = require('cors');
 dotenv.config();
 
 const app = express();
-app.use(express.json());  // To parse JSON requests
+app.use(express.json());  
 
-// CORS middleware ব্যবহার করুন
+
 app.use(cors());
 
 
-// MySQL database connection
+//  database connection
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -21,7 +21,7 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
-// Test MySQL connection
+// MySQL connection
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to MySQL:', err.stack);
@@ -30,11 +30,11 @@ db.connect((err) => {
     console.log('Connected to MySQL');
 });
 
-// Signup API without bcrypt
+// Signup API 
 app.post('/api/signup', (req, res) => {
     const { username, email, password } = req.body;
 
-    // Directly insert password without hashing
+
     const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
     db.query(query, [username, email, password], (err, results) => {
         if (err) {
@@ -55,7 +55,7 @@ app.post('/api/login', (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
-        // Compare passwords directly without bcrypt
+        
         const user = results[0];
         if (user.password === password) {
             res.status(200).json({ message: 'Login successful', username: user.username });
@@ -73,12 +73,12 @@ app.post('/api/create-campaign', (req, res) => {
     const { title, description, goal } = req.body;
     const fundraiser = req.body.fundraiser; 
 
-    // Validate required fields
+    
     if (!title || !description || !goal) {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Insert campaign data into the database
+   
     const query = 'INSERT INTO campaigns (fundraiser,title, description, target_amount) VALUES (?,?, ?, ?)';
     db.query(query, [fundraiser,title, description, goal], (err, results) => {
         if (err) {
@@ -96,7 +96,7 @@ app.post('/api/create-campaign', (req, res) => {
 });
 
 
-// Get all campaigns API
+// Get campaigns API
 app.get('/api/campaigns', (req, res) => {
 
     const query = 'SELECT * FROM campaigns ORDER BY created_at DESC';
@@ -105,14 +105,14 @@ app.get('/api/campaigns', (req, res) => {
             console.error('Error fetching campaigns:', err.stack);
             return res.status(500).json({ message: 'Error fetching campaigns' });
         }
-        res.status(200).json(results); // Return all campaigns
+        res.status(200).json(results); 
     });
 });
 
 
 
 
-// Handle donation submission
+// // api donation submission
 app.post('/api/donations', (req, res) => {
     const { campaignId, donorName, contactInfo, amount } = req.body;
 
@@ -133,9 +133,9 @@ app.post('/api/donations', (req, res) => {
     });
 });
 
-//////////profile 
+
 app.get('/api/user-campaigns', (req, res) => {
-    const userId = req.query.user_id; // Extract user_id from query parameters
+    const userId = req.query.user_id; 
 
     // const userId= 'Ayet Hasan';
 
@@ -158,16 +158,17 @@ app.get('/api/user-campaigns', (req, res) => {
 
 // Delete Campaign API
 app.delete('/api/delete-campaign', (req, res) => {
-    const { campaignId, userId } = req.body; // Get campaignId and userId from request
+    const { campaignId, userId } = req.body; 
 
-    // Ensure that the user is the creator of the campaign
+
+    
     const checkOwnershipQuery = 'SELECT * FROM campaigns WHERE id = ? AND fundraiser = ?';
     db.query(checkOwnershipQuery, [campaignId, userId], (err, results) => {
         if (err || results.length === 0) {
             return res.status(403).json({ message: 'You are not authorized to delete this campaign.' });
         }
 
-        // Proceed with deletion if the user is the owner
+
         const deleteQuery = 'DELETE FROM campaigns WHERE id = ?';
         db.query(deleteQuery, [campaignId], (err, results) => {
             if (err) {
@@ -182,14 +183,13 @@ app.delete('/api/delete-campaign', (req, res) => {
 app.put('/api/update-campaign', (req, res) => {
     const { campaignId, userId, title, description, goal } = req.body;
 
-    // Ensure the user is the owner of the campaign
+    
     const checkOwnershipQuery = 'SELECT * FROM campaigns WHERE id = ? AND fundraiser = ?';
     db.query(checkOwnershipQuery, [campaignId, userId], (err, results) => {
         if (err || results.length === 0) {
             return res.status(403).json({ message: 'You are not authorized to update this campaign.' });
         }
 
-        // Update campaign data if the user is the owner
         const updateQuery = 'UPDATE campaigns SET title = ?, description = ?, target_amount = ? WHERE id = ?';
         db.query(updateQuery, [title, description, goal, campaignId], (err, results) => {
             if (err) {
@@ -200,37 +200,6 @@ app.put('/api/update-campaign', (req, res) => {
     });
 });
 
-// Check if a campaign's funding goal is met
-app.get('/api/check-fund-completion', (req, res) => {
-    const { campaignId } = req.query;
-
-    // Get the total donations for the campaign
-    const totalDonationsQuery = 'SELECT SUM(amount) as totalDonations FROM donations WHERE campaign_id = ?';
-    db.query(totalDonationsQuery, [campaignId], (err, results) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error fetching donation data' });
-        }
-
-        const totalDonations = results[0].totalDonations || 0;
-
-        // Get the target amount for the campaign
-        const targetAmountQuery = 'SELECT target_amount FROM campaigns WHERE id = ?';
-        db.query(targetAmountQuery, [campaignId], (err, results) => {
-            if (err) {
-                return res.status(500).json({ message: 'Error fetching campaign data' });
-            }
-
-            const targetAmount = results[0].target_amount;
-
-            // Check if the target amount has been reached
-            if (totalDonations >= targetAmount) {
-                return res.status(200).json({ message: 'This campaign has reached its funding goal. No further donations can be made.' });
-            } else {
-                return res.status(200).json({ message: 'The campaign is still accepting donations.' });
-            }
-        });
-    });
-});
 
 
 
@@ -241,8 +210,8 @@ app.get('/api/check-fund-completion', (req, res) => {
 
 
 
+//Start server
 
-// Start server
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

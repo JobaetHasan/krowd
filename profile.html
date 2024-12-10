@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="styles/profile.css">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
         <h1 id="collector-name">[Collector Name]</h1>
         <h3>My Campaigns</h3>
         <div id="myCampaigns" class="campaigns-container">
-            <!-- Campaigns will be dynamically loaded here -->
+            <!-- Campaigns  -->
         </div>
     </div>
 
@@ -21,50 +21,52 @@
 
     <script>
         const userName = JSON.parse(localStorage.getItem('user'));
-        const userId = userName.name;  // Assuming the user name is used as userId
-
-        // Set Collector Name
+        const userId = userName.name;  
+       
         document.getElementById("collector-name").textContent = `${userName.name}`;
 
-        // Fetch user campaigns and render them
+        // 
         async function fetchUserCampaigns() {
             try {
                 const response = await fetch(`http://localhost:5500/api/user-campaigns?user_id=${userId}`);
                 const campaigns = await response.json();
 
                 const container = document.getElementById('myCampaigns');
-                container.innerHTML = ''; // Clear container
+                container.innerHTML = ''; 
 
                 if (campaigns.length === 0) {
                     container.innerHTML = '<p>No campaigns created yet.</p>';
                     return;
                 }
 
-                // For each campaign, display its details
-                for (let campaign of campaigns) {
-                    const fundStatusResponse = await fetch(`http://localhost:5500/api/check-fund-completion?campaignId=${campaign.id}`);
-                    const fundStatus = await fundStatusResponse.json();
-
+ 
+                campaigns.forEach(campaign => {
                     const campaignCard = `
-                        <div class="campaign-card" id="campaign-${campaign.id}">
+                        <div class="campaign-card">
                             <h3>${campaign.title}</h3>
                             <p>${campaign.description}</p>
                             <p><strong>Goal:</strong> $${campaign.target_amount}</p>
                             <p><em>Created at: ${new Date(campaign.created_at).toLocaleDateString()}</em></p>
-                            <p>${fundStatus.message}</p>
-                            <button onclick="deleteCampaign(${campaign.id})">Delete Campaign</button>
-                            <button onclick="updateCampaign(${campaign.id})">Update Campaign</button>
+                           <p><strong>created by:</strong> ${campaign.fundraiser}</p>
+                            
+                             <button onclick="saveCampaignId(${campaign.id})">Support</button>
                         </div>
                     `;
+                    
                     container.innerHTML += campaignCard;
-                }
+                });
+
+
+
+
+                    
             } catch (error) {
                 console.error('Error fetching campaigns:', error);
                 document.getElementById('myCampaigns').innerHTML = '<p>Error loading campaigns. Please try again later.</p>';
             }
         }
 
-        // Function to delete a campaign
+        // delete campaign
         async function deleteCampaign(campaignId) {
             try {
                 const response = await fetch('http://localhost:5500/api/delete-campaign', {
@@ -88,7 +90,7 @@
             }
         }
 
-        // Function to update a campaign
+        // update  campaign
         async function updateCampaign(campaignId) {
             const newTitle = prompt("Enter new title:");
             const newDescription = prompt("Enter new description:");
@@ -113,7 +115,7 @@
                     const data = await response.json();
                     if (response.ok) {
                         alert(data.message);
-                        fetchUserCampaigns();  // Refresh the campaign list after update
+                        fetchUserCampaigns();  
                     } else {
                         alert(data.message);
                     }
@@ -124,7 +126,7 @@
             }
         }
 
-        // Fetch campaigns when page loads
+        
         fetchUserCampaigns();
     </script>
 </body>

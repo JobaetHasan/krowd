@@ -5,26 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krowd - Empowering Your Ideas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&family=Rubik:wght@400;500&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 
 <body>
-    <!-- Header -->
+  
     <header>
         <div class="logo">Krowd</div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">How It Works</a></li>
-                <li><a href="#">Browse Projects</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
+        
+    
         <div class="auth-buttons">
-            <!-- <button onclick="window.location.href='login.html'">Login</button> -->
+          
             <button onclick="window.location.href='signup.html'">Sign Up</button>
         </div>
     </header>
@@ -32,7 +24,7 @@
 
 
 
-    <!-- Hero Section -->
+    
     <section class="hero-section">
         <h1>Empower Your Ideas. Fund Your Dreams.</h1>
         <p>Raise funds for your creative projects and make them a reality. Join a global community of backers and
@@ -40,7 +32,7 @@
 
         <h2>Active Campaigns</h2>
         <div id="campaigns-container" class="campaigns-container">
-            <!-- Campaigns will be dynamically loaded here -->
+            <!-- Campaigns  -->
 
         </div>
 
@@ -50,23 +42,15 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Contact</a>
-        </div>
-        <div class="social-icons">
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">Instagram</a>
-        </div>
+        <p>All rights reserved &copy; Ruumi</p>
+      
     </footer>
 
 
 
 
     <script>
-        // // Fetch and display campaigns
+        
         async function fetchCampaigns() {
             try {
                 const response = await fetch('http://localhost:5500/api/campaigns');
@@ -74,7 +58,7 @@
 
                 const container = document.getElementById('campaigns-container');
 
-                // Clear the container
+              
                 container.innerHTML = '';
 
                 if (campaigns.length === 0) {
@@ -97,7 +81,7 @@
                              <button onclick="saveCampaignId(${campaign.id})">Support</button>
                         </div>
                     `;
-                    // <button onclick="window.location.href='payment.html'">Support</button>
+                    
                     container.innerHTML += campaignCard;
                 });
             } catch (error) {
@@ -106,7 +90,7 @@
             }
         }
 
-      // Save campaign ID to sessionStorage and redirect to the payment page
+      
       function saveCampaignId(campaignId) {
             sessionStorage.setItem('selectedCampaignId', campaignId);
             window.location.href = 'payment.html';
